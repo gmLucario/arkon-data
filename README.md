@@ -15,11 +15,11 @@ Utilizando los datos abiertos de la Ciudad de México correspondientes a la ubic
 </p>
 
 **EndPoints Requeridos:**
-- [ ] Obtener una lista de unidades disponibles, de las que se tiene registro.
-- [ ] Consultar el/los historial de ubicaciones/fechas de una unidad dado su ID
-- [ ] Obtener una lista de alcaldías disponibles
+- [X] Obtener una lista de unidades disponibles, de las que se tiene registro.
+- [X] Consultar el/los historial de ubicaciones/fechas de una unidad dado su ID
+- [X] Obtener una lista de alcaldías disponibles
     - Se entiende que alcaldías con unidades
-- [ ] Obtener una lista de unidades que hayan estado dentro de una alcaldía
+- [X] Obtener una lista de unidades que hayan estado dentro de una alcaldía
 
 ## Desarrollo
 
@@ -51,29 +51,30 @@ SWAGGER_DOC | http://127.0.0.1:8000/docs
 ```json
 {
 
-    "id": "170"
-    "vehicle" {
-    "trip" {
-        "trip_id": "10999597"
-        "start_time": "13:15:00"
-        "start_date": "20210328"
-        "schedule_relationship": SCHEDULED
-        "route_id": "437"
-    }
-    "position" {
-        "latitude": 19.507200241088867
-        "longitude": -99.08599853515625
-        "bearing": 0.0
-        "odometer": 0.0
-        "speed": 0.0
-    }
-    "current_stop_sequence": 1
-    "current_status": STOPPED_AT
-    "timestamp": 1616958827
-    "congestion_level": UNKNOWN_CONGESTION_LEVEL
-    "stop_id": "501"
-    "vehicle" {
-        "id": "1304"
+    "id": "170",
+    "vehicle": {
+        "trip": {
+            "trip_id": "10999597",
+            "start_time": "13:15:00",
+            "start_date": "20210328",
+            "schedule_relationship": 1,//SCHEDULED
+            "route_id": "437"
+        },
+        "position": {
+            "latitude": 19.507200241088867,
+            "longitude": -99.08599853515625,
+            "bearing": 0.0,
+            "odometer": 0.0,
+            "speed": 0.0
+        }
+    },
+    "current_stop_sequence": 1,
+    "current_status": 0, //STOPPED_AT
+    "timestamp": 1616958827,
+    "congestion_level": 0,//UNKNOWN_CONGESTION_LEVEL,
+    "stop_id": "501",
+    "vehicle": {
+        "id": "1304",
         "label": "2602"
     }
 
