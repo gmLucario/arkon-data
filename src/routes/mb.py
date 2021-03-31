@@ -24,6 +24,9 @@ mb_router = APIRouter(
     response_model=List[MetroBus],
 )
 async def get_mb_bus(page: int, results_per_page: int):
+    """
+    Get all the mb units that have been saved
+    """
     repo.set_collection(collection="mb_units", index_fields=("vehicle_id",))
 
     cursor = repo.fetch_records(
@@ -46,6 +49,9 @@ async def get_mb_bus(page: int, results_per_page: int):
     response_model=List[MbPositionRecordDetails],
 )
 async def get_mb_bus_pos_history(mb_id: int, start_date: datetime, end_date: datetime):
+    """
+    Get the position records of a mb unit
+    """
     repo.set_collection(collection="mb_units_pos", index_fields=("vehicle_id",))
 
     cursor = repo.fetch_records_aggregate(

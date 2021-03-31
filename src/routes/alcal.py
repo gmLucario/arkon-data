@@ -22,6 +22,9 @@ mb_alcal = APIRouter(
     response_model=List[str],
 )
 async def get_all_alcal():
+    """
+    Return all the valid alcaldias that have been saved
+    """
     repo.set_collection(collection="alcal_mb", index_fields=("name",))
 
     cursor = repo.fetch_records_fields(
@@ -39,6 +42,9 @@ async def get_all_alcal():
     response_model=List[MetroBusByAlRes],
 )
 async def get_units_by_alcal(alcal_name: str, start_date: datetime, end_date: datetime):
+    """
+    Get all the units that have been inside an alcaldia
+    """
     repo.set_collection(collection="alcal_mb", index_fields=("name",))
 
     cursor = repo.fetch_records_aggregate(

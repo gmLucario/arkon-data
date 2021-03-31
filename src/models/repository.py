@@ -40,18 +40,30 @@ class ApiRepository:
         self._db = client[os.getenv("DB_NAME")]
 
     def set_collection(self, collection: str, index_fields: Tuple[str] = ()) -> None:
+        """
+        Set the collection in the mongodb that will be affected
+        """
         self._collection = self._db[collection]
         self._collection.create_index([(index, ASCENDING) for index in index_fields], unique=True)
 
     def find_one(self, filters: dict) -> bool:
+        """
+        Find a single document based on filters
+        """
         return self._collection.find_one(filters)
 
     async def update_or_insert(self, obj_to_save: BaseModel, filters: dict):
+        """
+        Create or update a document based on filters
+        """
         return await self._collection.find_one_and_update(
             filters, {"$set": obj_to_save.dict()}, upsert=True, return_document=ReturnDocument.AFTER
         )
 
     async def update_list_by(self, filters: dict, elements_push: List[BaseModel], tag: str):
+        """
+        Add new elements to a list field of a document found it byfilters
+        """
         return await self._collection.find_one_and_update(
             filters,
             {"$addToSet": {tag: {"$each": [o.dict() for o in elements_push]}}},
@@ -66,12 +78,18 @@ class ApiRepository:
         skip: int = 0,
         limit: int = 0,
     ):
+        """
+        Return many documents paginated
+        """
         if not sortby_params:
             return self._collection.find(filters).limit(limit).skip(skip)
 
         return self._collection.find(filters).sort(sortby_params).limit(limit).skip(skip)
 
     def fetch_records_fields(self, filters: Dict[str, Any], fields: Optional[Dict[str, Any]]):
+        """
+        Return only specific fields of many documents by filters
+        """        
         if not fields:
             return self._collection.find(filters)
 
@@ -81,4 +99,7 @@ class ApiRepository:
         self,
         filters_list: List[Dict[str, Any]],
     ):
+        """
+        Return many documents by aggregate
+        """
         return self._collection.aggregate(filters_list)

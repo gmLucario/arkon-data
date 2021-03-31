@@ -2,6 +2,9 @@ from models.mb import MetroBus
 
 
 def mb_response_serializer(mongo_result: dict) -> MetroBus:
+    """
+    Deserialize mongo result to MetroBus
+    """
     if not mongo_result:
         return None
 
