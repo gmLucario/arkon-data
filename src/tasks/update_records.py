@@ -115,19 +115,19 @@ async def up_mb_pos_alcal_mb():
                 tag="position_records",
             )
 
-        repo.set_collection(collection="alcal_mb", index_fields=("name",))
+            repo.set_collection(collection="alcal_mb", index_fields=("name",))
 
-        alcal_name = (add_info.get("delegacion") or "NOT_FOUND").replace(".", "")
-        alcal_name = unidecode(alcal_name)
-        alcal_name = alcal_name.upper()
+            alcal_name = (add_info.get("delegacion") or "NOT_FOUND").replace(".", "")
+            alcal_name = unidecode(alcal_name)
+            alcal_name = alcal_name.upper()
 
-        await repo.update_list_by(
-            filters={"name": alcal_name},
-            elements_push=[
-                MbUnitHistory(
-                    vehicle_id=mb_raw.vehicle_id,
-                    datetime_record=mb_raw.date_updated,
-                )
-            ],
-            tag="mb_units_history",
-        )
+            await repo.update_list_by(
+                filters={"name": alcal_name},
+                elements_push=[
+                    MbUnitHistory(
+                        vehicle_id=mb_raw.vehicle_id,
+                        datetime_record=mb_raw.date_updated,
+                    )
+                ],
+                tag="mb_units_history",
+            )
